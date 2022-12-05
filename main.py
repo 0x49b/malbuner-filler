@@ -65,3 +65,5 @@ sleep(5)
 
 
 browser.quit()
+
+exit(0)
