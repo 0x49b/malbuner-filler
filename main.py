@@ -9,7 +9,6 @@ import sys
 
 logging.basicConfig(format='%(asctime)s %(message)s', filename='malbuner.log', encoding='utf-8', level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
-
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 
