@@ -1,29 +1,46 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from time import sleep
+import logging
+import sys
 
-browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+logging.basicConfig(format='%(asctime)s %(message)s', filename='malbuner.log', encoding='utf-8', level=logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+logging.info("open browser")
+browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+logging.info("open https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
 browser.get("https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
 
+
 browser.maximize_window()
+logging.info("maximized window")
+logging.info("on Page " + browser.title)
 
 # Remove Cookie Warning
 sleep(.5)
 cookie = browser.find_element(By.XPATH, value="/html/body/div/div/div/div/div/button")
 cookie.click()
-
+logging.info("Clicked on Cookie Warning")
 
 # Scroll to Form like a Human
 sleep(5)
 jetzt_teilnehmen = browser.find_element(By.XPATH, value="/html/body/div/div/div/div/div/div/div/section/div/button")
 jetzt_teilnehmen.click()
+logging.info("clicked on jetzt teilnehmen")
 
 # Fill out the Form, start with the correct answer
 sleep(5)
 
-input = browser.find_elements(By.XPATH, value="/html/body/div/div/div/div/div/div/div/section/div/div/div/form/div/div/label/span/input")
+input = browser.find_elements(By.XPATH,
+                              value="/html/body/div/div/div/div/div/div/div/section/div/div/div/form/div/div/label/span/input")
 input[2].click()
 
 sleep(3)
@@ -50,6 +67,8 @@ sleep(.5)
 city = browser.find_element(By.ID, value="city")
 city.send_keys("Umiken")
 
+logging.info("filled the form")
+
 # Accept Conditions
 sleep(.1)
 input[3].click()
@@ -57,13 +76,19 @@ input[3].click()
 sleep(.2)
 input[4].click()
 
+logging.info("accepted the conditions")
+
 sleep(.2)
-send = browser.find_element(By.XPATH, value="/html/body/div/div/div/div/div/div/div/section/div/div/div/form/div/div/button")
+send = browser.find_element(By.XPATH,
+                            value="/html/body/div/div/div/div/div/div/div/section/div/div/div/form/div/div/button")
 send.click()
+
+logging.info("sent form to server")
 
 sleep(5)
 
-
 browser.quit()
+
+logging.info("closed browser")
 
 exit(0)
