@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
 from selenium.webdriver.common.by import By
 from time import sleep
 import logging
@@ -13,7 +14,7 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 
 logging.info("open browser")
-browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+browser = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()), options=chrome_options)
 
 logging.info("open https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
 browser.get("https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
