@@ -14,7 +14,8 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 
 logging.info("open browser")
-browser = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()), options=chrome_options)
+#browser = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()), options=chrome_options)
+browser = webdriver.Chrome(executable_path = '/usr/lib/chromium-browser/chromedriver', options=chrome_options)
 
 logging.info("open https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
 browser.get("https://www.malbuner.ch/25-jubilaeum-gewinnspiel")
